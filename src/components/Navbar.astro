@@ -1,0 +1,48 @@
+---
+import { PawPrint } from 'lucide-react';
+import { buttonVariants } from "@/components/ui/button";
+import fahsaiLogo from '../assets/fahsai-logo.svg';
+import type{ LanguageData } from "../config/portfolioData.ts";
+
+
+interface Props {
+  currentData: LanguageData;
+}
+
+const { currentData } = Astro.props;
+---
+
+<header class="absolute inset-x-0 top-0 z-50">
+  <nav class="flex w-full justify-between items-center gap-2 border-b border-b-border bg-background/ fixed bg-background/80 backdrop-blur-md z-50 py-3 px-4 md:px-8 lg:px-20">
+    <div 
+      class="flex items-center gap-2.5 cursor-pointer group"
+      id="brand-header"
+    >
+      <img id="astro" src={fahsaiLogo.src} class="aspect-auto h-10">
+      <h1 class="text-lg md:text-xl font-semibold">Nakagamon Saengdara</h1>
+    </div>
+    <div class="flex gap-2 items-center">
+      <div class="hidden md:flex gap-1">
+        <a href="#skills" id="nav-link-skills" class={buttonVariants({ variant: "ghost" })}>{currentData.nav.skills}</a>
+        <a href="#projects" id="nav-link-projects" class={buttonVariants({ variant: "ghost" })}>{currentData.nav.projects}</a>
+      </div>
+      <a
+        href="#contact"
+        id="nav-cta-talk"
+        class={
+        buttonVariants({ variant: "default" })}
+      >
+        {currentData.nav.contact}
+        <PawPrint /> 
+      </a>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const brandHeader = document.getElementById('brand-header');
+  
+  brandHeader?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+</script>

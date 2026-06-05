@@ -1,0 +1,82 @@
+---
+import { ArrowRight, Download } from "lucide-react";
+import type{ LanguageData } from "../config/portfolioData.ts";
+import { buttonVariants } from "@/components/ui/button";
+
+interface Props {
+  currentData: LanguageData;
+}
+
+const { currentData } = Astro.props;
+---
+
+<section class="relative h-screen overflow-hidden bg-liner-to-b from-background to-primary pt-30 pb-20 sm:pt-35 sm:pb-24">
+  <div class="absolute -bottom-40 left-1/2 -translate-x-1/2 w-350 h-100 bg-primary rounded-full blur-[100px] pointer-events-none" />
+  
+  <div class="max-w-4xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
+    <!-- Intro -->
+    <div class="flex flex-col items-center animate-fade-in-up">
+      <h1 
+        class="tracking-tight leading-[1.1] max-w-3xl"
+        id="hero-headline"
+      >
+        {currentData.hero.title}
+      </h1>
+
+      <p 
+        class="mt-6 sm:mt-8 leading-relaxed max-w-2xl tracking-wide"
+        id="hero-subtitle"
+      >
+        {currentData.hero.bio}
+      </p>
+    </div>
+    
+    <!-- Highlight Stats Row -->
+    <div
+      class="my-10 sm:my-12 w-full max-w-lg flex items-center justify-center gap-1 sm:gap-2 text-stone-900 animate-fade-in-up"
+      style="animation-delay: 150ms;"
+      id="hero-stats-row"
+    >
+      {currentData.hero.stats.map((stat, idx) => (
+        <>
+          {idx > 0 && (
+            <div class="h-8 w-0.5 bg-primary-foreground/40 mx-1 sm:mx-3" />
+          )}
+          <div class="flex flex-col items-center px-4 sm:px-6">
+            <span class="text-2xl sm:text-3.5xl font-bold font-mono tracking-tight text-stone-900">
+              {stat.value}
+            </span>
+            <p class="text-[11px] sm:text-xs font-medium tracking-wider uppercase mt-1">
+              {stat.label}
+            </p>
+          </div>
+        </>
+      ))}
+    </div>
+
+    <!-- Main CTA Interaction Buttons -->
+    <div
+      class="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 w-full max-w-md animate-fade-in-up"
+      style="animation-delay: 300ms;"
+      id="hero-ctas"
+    >
+      <button
+        class:list={[buttonVariants({ variant: "outline", size: "lg" }), "font-semibold px-7 py-5.5 flex items-center justify-center gap-2 shadow-sm"]}
+        id="hero-cta-cv"
+        data-download-msg={currentData.hero.ctaDownloadCv}
+      >
+        <Download />
+        {currentData.hero.ctaDownloadCv}
+      </button>
+
+      <a
+        href="#projects"
+        class:list={[buttonVariants({ variant: "default", size: "lg" }), "font-semibold px-7 py-5.5 flex items-center justify-center gap-2 shadow-sm hover:shadow-md"]}
+        id="hero-cta-work"
+      >
+        {currentData.hero.ctaViewWork}
+        <ArrowRight />
+      </a>
+    </div>
+  </div>
+</section>
